@@ -1,0 +1,54 @@
+comados do makefile
+
+avr-gcc -Os -DF_CPU=16000000UL -mmcu=atmega328p -c -o led.o led.c
+  -Os se refera ao tipo de otimização do compilador
+
+  -DF_CPU define a frequência do clock
+
+  -mmcu especifica qual mictrocontrolador esta usando
+
+
+
+
+avr-gcc -o led.bin led.o
+
+  avr-gcc: Este é o compilador utilizado para compilar o código-fonte em linguagem C em um arquivo executável para ser carregado em um microcontrolador AVR.
+
+  -o led.bin: A flag -o é usada para especificar o nome do arquivo de saída resultante da compilação. No caso, o arquivo gerado será chamado led.bin.
+
+  led.o: Este é o nome do arquivo de objeto a ser compilado. O arquivo de objeto é uma representação intermediária do código-fonte original, e é produzido durante a etapa de compilação. O arquivo de objeto contém as informações necessárias para o linker produzir o arquivo executável final.
+
+
+
+
+avr-objcopy -O ihex -R .eeprom led.bin led.hex
+
+  "avr-objcopy": é uma ferramenta do ambiente de desenvolvimento AVR que copia dados de arquivos objeto e os transforma em outro tipo de arquivo.
+
+  "-O ihex": indica o formato de saída desejado, neste caso, o formato Intel Hexadecimal.
+
+  "-R .eeprom": é uma opção para excluir uma seção específica do arquivo objeto. No caso, esta opção exclui a seção .eeprom do arquivo objeto led.bin.
+
+  "led.bin": é o nome do arquivo objeto de entrada.
+
+  "led.hex": é o nome do arquivo de saída, no formato Intel Hexadecimal.
+  
+
+
+
+
+avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b115200 -U flash:w:led.hex
+    
+  -F: Força a gravação do código, mesmo se o dispositivo já tiver o mesmo código.
+  
+  -V: Habilita o modo verbose, o que significa que o avrdude fornecerá mais informações sobre o processo de gravação.
+  
+  -c arduino: Especifica que o programador deve ser configurado como um Arduino.
+  
+  -p ATMEGA328P: Especifica o tipo de microcontrolador que você está usando. Neste caso, é o ATmega328P.
+  
+  -P /dev/ttyUSB0: Especifica a porta serial na qual o dispositivo está conectado. No caso, é a porta /dev/ttyUSB0.
+  
+  -b115200: Especifica a taxa de transmissão serial, em bauds, para a comunicação com o dispositivo. Neste caso, é 115200 bauds.
+  
+  -U flash:w:led.hex: Especifica a operação de gravação da memória flash, com a opção w para escrita, usando o arquivo led.hex como o código a ser gravado.
