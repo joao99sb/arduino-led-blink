@@ -9,6 +9,11 @@ led_7:
 	avr-gcc -o led7.bin led7.o
 	avr-objcopy -O ihex -R .eeprom led7.bin led7.hex
 	sudo avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b115200 -U flash:w:led7.hex
+clean_mem:
+	avr-gcc -Os -DF_CPU=16000000UL -mmcu=atmega328p -c -o clean_mem.o clean_mem.c
+	avr-gcc -o clean_mem.bin clean_mem.o
+	avr-objcopy -O ihex -R .eeprom clean_mem.bin clean_mem.hex
+	sudo avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b115200 -U flash:w:clean_mem.hex
 
 clear:
 	rm -Rf *.o *.bin *.hex
