@@ -52,3 +52,8 @@ avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b115200 -U flash:w:led.h
   -b115200: Especifica a taxa de transmissão serial, em bauds, para a comunicação com o dispositivo. Neste caso, é 115200 bauds.
   
   -U flash:w:led.hex: Especifica a operação de gravação da memória flash, com a opção w para escrita, usando o arquivo led.hex como o código a ser gravado.
+
+
+
+
+
